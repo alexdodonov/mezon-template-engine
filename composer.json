@@ -1,25 +1,27 @@
 {
-	"name" : "mezon/template-engine",
-	"description" : "https://github.com/alexdodonov/mezon-template-engine",
-	"license" : "MIT",
-	"authors" : [{
-			"name" : "Dodonov Alexey",
-			"email" : "alexey@dodonov.pro",
-			"homepage" : "http://gdzone.ru",
-			"role" : "Founder"
+	"name": "mezon/template-engine",
+	"description": "https://github.com/alexdodonov/mezon-template-engine",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dodonov Alexey",
+			"email": "alexey@dodonov.pro",
+			"homepage": "http://gdzone.ru",
+			"role": "Founder"
 		}
 	],
-	"require" : {
-		"php" : ">=7.2.0"
+	"require": {
+		"php": ">=7.2.0",
+		"mezon/functional": "^1.0"
 	},
-	"support" : {
-		"email" : "alexey@dodonov.pro",
-		"issues" : "https://github.com/alexdodonov/mezon-template-engine/issues",
-		"source" : "https://github.com/alexdodonov/mezon-template-engine"
+	"support": {
+		"email": "alexey@dodonov.pro",
+		"issues": "https://github.com/alexdodonov/mezon-template-engine/issues",
+		"source": "https://github.com/alexdodonov/mezon-template-engine"
 	},
-	"minimum-stability" : "dev",
-	"homepage" : "https://github.com/alexdodonov/mezon-template-engine",
-	"prefer-stable" : true,
+	"minimum-stability": "dev",
+	"homepage": "https://github.com/alexdodonov/mezon-template-engine",
+	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"Mezon\\TemplateEngine\\": ""
