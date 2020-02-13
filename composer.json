@@ -1,7 +1,7 @@
 {
 	"name" : "mezon/template-engine",
 	"description" : "https://github.com/alexdodonov/mezon-template-engine",
-	"license" : "Commercial",
+	"license" : "MIT",
 	"authors" : [{
 			"name" : "Dodonov Alexey",
 			"email" : "alexey@dodonov.pro",
