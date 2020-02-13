@@ -1,8 +1,8 @@
 # Template engine
-##Intro##
+## Intro
 Template engine provides template compilation routine with variables, loops and other programming abstractions.
 
-##Loading resources##
+## Loading resources
 
 Mezon has a simple storage wich stores CSS and JS files. When page is rendered, template engine accessing it and fetching files to put in the 'head' tag of the rendered page.
 
@@ -35,7 +35,7 @@ $TemplateResources->add_css_file( './res/test.css' ); // no file will be added
 
 But this way of additing resources is quite low level and it may be inconvinient for large number of resource files. So we have created assets. The documentation about it can be read [here](https://github.com/alexdodonov/mezon/tree/master/vendor/asset#assets-with-css-and-js-files)
 
-##Page compilation##
+## Page compilation
 
 TemplateEngine class provides content compilation routine. This function is called TemplateEngine::print_record( $String , $Data ) wich replaces all variables {variable-name} with values from $Data.
 
@@ -62,13 +62,13 @@ print( TemplateEngine::print_record(
 ) );
 ```
 
-##Template variables##
+## Template variables
 
 You can use template variables bounded by '{' and '}' symbols.
 
 For example:
 
-##Extended page compilation##
+## Extended page compilation
 
 You may also use loopes in your templates.
 
