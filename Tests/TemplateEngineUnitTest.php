@@ -24,7 +24,7 @@ class TemplateEngineUnitTest extends \PHPUnit\Framework\TestCase
     {
         $data = [
             'var1' => 'v1',
-            'var2' => 'v2',
+            'var2' => 'v2'
         ];
         $string = '{var1} {var2}';
 
@@ -99,9 +99,7 @@ class TemplateEngineUnitTest extends \PHPUnit\Framework\TestCase
      */
     public function macroTestsData(): array
     {
-        return json_decode(
-            '[["{foreach:val}{~foreach}",[],"{foreach:val}{~foreach}"],["{print:val}{~print}",[],"{print:val}{~print}"],["{switch:1}{case:1}1{~case}{case:2}2{~case}{~switch}",[],"1"],["{foreach:field}{content}{~foreach}",{"field":[{"content":"1"},{"content":"2"}]},"12"],["{foreach:field}{n}{~foreach}",{"field":[{"f":1},{"f":2}]},"12"],["{switch:2}{case:1}1{~case}{case:2}2{~case}{~switch}",[],"2"],["{switch:0}{case:0}0{~case}{case:1}1{~case}{~switch}",[],"0"],["{switch:{value}}{case:0}0{~case}{case:1}1{~case}{~switch}",[],"{switch:{value}}{case:0}0{~case}{case:1}1{~case}{~switch}"],["{print:field}{content1}{content2}{~print}",{"field":[{"content1":"1"},{"content2":"2"}]},"12"],["{switch:{field3}}{case:3}Done!{~case}{~switch}",{"field1":1,"field2":{"f1":"11","f2":"22"},"field3":3},"Done!"],["{var1} {var2} {var3}",{"var1":"v1","var2":"v2","field":{"var3":"v3"}},"v1 v2 v3"]]',
-            true);
+        return json_decode('[["{foreach:val}{~foreach}",[],"{foreach:val}{~foreach}"],["{print:val}{~print}",[],"{print:val}{~print}"],["{switch:1}{case:1}1{~case}{case:2}2{~case}{~switch}",[],"1"],["{foreach:field}{content}{~foreach}",{"field":[{"content":"1"},{"content":"2"}]},"12"],["{foreach:field}{n}{~foreach}",{"field":[{"f":1},{"f":2}]},"12"],["{switch:2}{case:1}1{~case}{case:2}2{~case}{~switch}",[],"2"],["{switch:0}{case:0}0{~case}{case:1}1{~case}{~switch}",[],"0"],["{switch:{value}}{case:0}0{~case}{case:1}1{~case}{~switch}",[],"{switch:{value}}{case:0}0{~case}{case:1}1{~case}{~switch}"],["{print:field}{content1}{content2}{~print}",{"field":[{"content1":"1"},{"content2":"2"}]},"12"],["{switch:{field3}}{case:3}Done!{~case}{~switch}",{"field1":1,"field2":{"f1":"11","f2":"22"},"field3":3},"Done!"],["{var1} {var2} {var3}",{"var1":"v1","var2":"v2","field":{"var3":"v3"}},"v1 v2 v3"]]', true);
     }
 
     /**
@@ -116,5 +114,20 @@ class TemplateEngineUnitTest extends \PHPUnit\Framework\TestCase
 
         // assertions
         $this->assertEquals($result, $data, 'Invalid blocks parsing');
+    }
+
+    /**
+     * Testing 'compileSwitch' method
+     */
+    public function testCompileSwitch(): void
+    {
+        // setup
+        $content = '{switch:1}{case:1}1{~case}{case:2}2{~case}{~switch}';
+
+        // test body
+        $result = \Mezon\TemplateEngine\TemplateEngine::compileSwitch($content);
+
+        // assertions
+        $this->assertEquals('1', $result);
     }
 }
