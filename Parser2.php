@@ -75,6 +75,26 @@ class Parser2
     }
 
     /**
+     * Method substitutes macro
+     *
+     * @param string $string
+     *            string to be processed
+     * @param string $content
+     *            already processed string
+     * @param int $openBracePosition
+     *            starting of the macro
+     * @return string parsed
+     */
+    protected static function substituteMacro(string $string, string $content, int $openBracePosition): string
+    {
+        $macroName = self::getMacroName($string, $openBracePosition);
+        $macroEnd = '{~' . $macroName . '}';
+        $readEnd = self::getReadEnd($string, $openBracePosition);
+
+        return substr_replace($string, $content, $openBracePosition, $readEnd - $openBracePosition + strlen($macroEnd));
+    }
+
+    /**
      * Method compiles string
      *
      * @param string $string
