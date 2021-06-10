@@ -18,6 +18,63 @@ class Parser2
 {
 
     /**
+     * Method finds position of the final symbol to de read
+     *
+     * @param string $content
+     *            content to be parsed
+     * @param int $openBracePosition
+     *            start of the macro
+     * @return int position of the final symbol to de read
+     */
+    protected static function getReadEnd(string $content, int $openBracePosition): int
+    {
+        $counter = 1;
+        $macroName = self::getMacroName($content, $openBracePosition);
+        $macroStart = '{' . $macroName . (self::hasParameters($content, $openBracePosition) ? ':' : '}');
+        $macroEnd = '{~' . $macroName . '}';
+
+        while ($counter > 0) {
+            $openMacroPosition = strpos($content, $macroStart, $openBracePosition + 1);
+            $endMacroPosition = strpos($content, $macroEnd, $openBracePosition + 1);
+
+            if ($endMacroPosition === false) {
+                throw (new \Exception('Ending ' . $endMacroPosition . 'was not found', - 1));
+            } elseif ($openMacroPosition === false) {
+                // no open macros till the end of the $content
+                $openBracePosition = $openMacroPosition;
+                $counter --;
+            } elseif ($openMacroPosition < $endMacroPosition) {
+                // we have nested macros
+                $openBracePosition = $openMacroPosition;
+                $counter ++;
+            } else {
+                // $endMacroPosition < $openMacroPosition
+                $openBracePosition = $endMacroPosition;
+                $counter --;
+            }
+        }
+
+        return $endMacroPosition;
+    }
+
+    /**
+     * Method extracts content within macro
+     *
+     * @param string $content
+     *            content to be parsed
+     * @param int $openBracePosition
+     *            starting position
+     * @return string macro content
+     */
+    protected static function getContentInBraces(string $content, int $openBracePosition): string
+    {
+        $readStart = self::getReadStart($content, $openBracePosition);
+        $readEnd = self::getReadEnd($content, $openBracePosition);
+
+        return substr($content, $readStart, $readEnd - $readStart);
+    }
+
+    /**
      * Method compiles string
      *
      * @param string $string
@@ -28,15 +85,18 @@ class Parser2
      */
     public static function compile(string $string, $record = []): string
     {
-        $OpenBracePosition = 0;
+        $openBracePosition = 0;
 
         do {
-            $OpenBracePosition = strpos($string, '{', $OpenBracePosition);
+            $openBracePosition = strpos($string, '{', $openBracePosition);
 
-            if ($OpenBracePosition === false) {
+            if ($openBracePosition === false) {
                 return $string;
             } else {
-                $content = self::getContentInBraces($string, $OpenBracePosition);
+                $macroName = self::getMacroName($string, $openBracePosition);
+                $content = self::getContentInBraces($string, $openBracePosition);
+                $content = self::processMacro($macroName, $content, $record);
+                $string = self::substituteMacro($string, $content, $openBracePosition);
             }
         } while (true);
     }
