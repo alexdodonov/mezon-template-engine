@@ -10,6 +10,11 @@
 			"role": "Founder"
 		}
 	],
+	"require-dev": {
+		"phpunit/phpunit": "^8.5",
+		"phpunit/php-token-stream": "3.1.2",
+        "vimeo/psalm": "^4.2"
+	},
 	"require": {
 		"php": ">=7.2.0",
 		"mezon/functional": "^1.0"
@@ -24,7 +29,11 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"Mezon\\TemplateEngine\\": ""
+			"Mezon\\": "./Mezon"
 		}
+	},
+	"scripts": {
+		"test": "php ./vendor/phpunit/phpunit/phpunit",
+		"psalm": "php ./vendor/vimeo/psalm/psalm --show-info=true"
 	}
 }
