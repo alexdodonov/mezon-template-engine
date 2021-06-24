@@ -28,6 +28,31 @@ class Parser2
     ];
 
     /**
+     * Method returns macro name
+     *
+     * @param string $content
+     *            content to be parsed
+     * @param int $openBracePosition
+     *            open brace position
+     * @return string macro name
+     */
+    protected static function getMacroName(string $content, int $openBracePosition): string
+    {
+        // TODO make test when we try to fetch macro name from {placeholder} - it is not macro, it is placeholder!!!
+        $doubleDotPosition = strpos($content, ':', $openBracePosition);
+        $endBracePosition = strpos($content, '}', $openBracePosition);
+
+        if ($endBracePosition === false) {
+            throw (new \Exception('Invalid structure', - 1));
+        } elseif ($doubleDotPosition === false || $endBracePosition < $doubleDotPosition) {
+            // it is not macro, it is placeholder
+            return '';
+        } else {
+            return substr($content, $openBracePosition + 1, $doubleDotPosition - $openBracePosition - 1);
+        }
+    }
+
+    /**
      * Method finds position of the final symbol to de read
      *
      * @param string $content
