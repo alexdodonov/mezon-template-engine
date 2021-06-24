@@ -18,6 +18,16 @@ class Parser2
 {
 
     /**
+     * List of macro handlers
+     *
+     * @var array
+     */
+    public static $macroHandlers = [
+        'foreach' => Parser2\ForeachHandler::parse,
+        'switch' => Parser2\SwitchHandler::parse
+    ];
+
+    /**
      * Method finds position of the final symbol to de read
      *
      * @param string $content
@@ -92,6 +102,26 @@ class Parser2
         $readEnd = self::getReadEnd($string, $openBracePosition);
 
         return substr_replace($string, $content, $openBracePosition, $readEnd - $openBracePosition + strlen($macroEnd));
+    }
+
+    /**
+     * Method processes the specified macro
+     *
+     * @param string $macroName
+     *            macro name
+     * @param string $content
+     *            content to be processed
+     * @param array|object $record
+     *            set of vars to be applied
+     * @return string processed content
+     */
+    public static function processMacro(string $macroName, string $content, $record): string
+    {
+        if (isset(self::$macroHandlers[$macroName])) {
+            return self::$macroHandlers[$macroName]($content, $record);
+        } else {
+            throw (new \Exception('Macro handler "' . $macroName . '" was not found', - 1));
+        }
     }
 
     /**
