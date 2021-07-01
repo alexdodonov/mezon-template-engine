@@ -1,6 +1,6 @@
 {
 	"name": "mezon/template-engine",
-	"description": "https://github.com/alexdodonov/mezon-template-engine",
+	"description": "Small template engine for your projects",
 	"license": "MIT",
 	"authors": [
 		{
