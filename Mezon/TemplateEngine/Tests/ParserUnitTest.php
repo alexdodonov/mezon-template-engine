@@ -1,6 +1,11 @@
 <?php
+namespace Mezon\TemplateEngine\Tests;
 
-class ParserUnitTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+use Mezon\TemplateEngine\Parser;
+
+/** psalm-suppress PropertyNotSetInConstructor */
+class ParserUnitTest extends TestCase
 {
 
     /**
@@ -12,7 +17,7 @@ class ParserUnitTest extends \PHPUnit\Framework\TestCase
         $string = 'some {foreach:{var}} string{~foreach}';
 
         // test body
-        $result = \Mezon\TemplateEngine\Parser::getMacroParameters($string, "foreach");
+        $result = Parser::getMacroParameters($string, "foreach");
 
         // assertions
         $this->assertEquals('{var}', $result);
@@ -27,7 +32,7 @@ class ParserUnitTest extends \PHPUnit\Framework\TestCase
         $string = 'some {foreach:{switch:1}{case:1}{~case}{~switch}} string{~foreach}';
 
         // test body
-        $result = \Mezon\TemplateEngine\Parser::getMacroParameters($string, "foreach");
+        $result = Parser::getMacroParameters($string, "foreach");
 
         // assertions
         $this->assertEquals('{switch:1}{case:1}{~case}{~switch}', $result);
@@ -42,7 +47,7 @@ class ParserUnitTest extends \PHPUnit\Framework\TestCase
         $string = 'some {foreach:var} string';
 
         // test body
-        $result = \Mezon\TemplateEngine\Parser::getMacroParameters($string, "foreach");
+        $result = Parser::getMacroParameters($string, "foreach");
 
         // assertions
         $this->assertFalse($result);
@@ -57,7 +62,7 @@ class ParserUnitTest extends \PHPUnit\Framework\TestCase
         $string = 'some string';
 
         // test body
-        $result = \Mezon\TemplateEngine\Parser::getMacroParameters($string, "foreach");
+        $result = Parser::getMacroParameters($string, "foreach");
 
         // assertions
         $this->assertFalse($result);
