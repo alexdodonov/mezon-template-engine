@@ -4,7 +4,7 @@ namespace Mezon\TemplateEngine\Tests;
 use PHPUnit\Framework\TestCase;
 use Mezon\TemplateEngine\Parser;
 
-/** psalm-suppress PropertyNotSetInConstructor */
+/** @psalm-suppress PropertyNotSetInConstructor */
 class ParserUnitTest extends TestCase
 {
 
