@@ -161,19 +161,23 @@ class Parser2
     public static function compile(string $string, $record = []): string
     {
         $openBracePosition = 0;
+        $result = '';
 
-        do {
+        while (true) {
             $openBracePosition = strpos($string, '{', $openBracePosition);
 
             if ($openBracePosition === false) {
-                return $string;
+                $result = $string;
+                break;
             } else {
                 $macroName = self::getMacroName($string, $openBracePosition);
                 $content = self::getContentInBraces($string, $openBracePosition);
                 $content = self::processMacro($macroName, $content, $record);
                 $string = self::substituteMacro($string, $content, $openBracePosition);
             }
-        } while (true);
+        }
+
+        return $result;
     }
 
     /**
@@ -181,7 +185,7 @@ class Parser2
      *
      * @param string $string
      *            processing string
-     * @param array|object $record
+     * @param array|object|mixed $record
      *            printing record
      * @param
      *            string Processed string
