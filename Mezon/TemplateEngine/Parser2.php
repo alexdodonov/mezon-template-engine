@@ -53,6 +53,35 @@ class Parser2
     }
 
     /**
+     * Method returns read start
+     *
+     * @param string $content
+     *            content to be processed
+     * @param int $openBracePosition
+     *            open brace position
+     * @return int read cursor
+     */
+    protected static function getReadStart(string $content, int $openBracePosition): int
+    {
+        $counter = 1;
+
+        while ($counter > 0) {
+            $openBracePosition = strpos($content, '{', $openBracePosition + 1);
+            $endBracePosition = strpos($content, '}', $openBracePosition + 1);
+
+            if ($endBracePosition === null) {
+                throw (new \Exception('Closing brace was not found', - 1));
+            } elseif ($openBracePosition === null) {
+                $counter --;
+            } elseif ($openBracePosition < $endBracePosition) {
+                $counter ++;
+            } elseif ($openBracePosition > $endBracePosition) {
+                $counter --;
+            }
+        }
+    }
+
+    /**
      * Method finds position of the final symbol to de read
      *
      * @param string $content
