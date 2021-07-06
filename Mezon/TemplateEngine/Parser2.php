@@ -69,9 +69,9 @@ class Parser2
             $openBracePosition = strpos($content, '{', $openBracePosition + 1);
             $endBracePosition = strpos($content, '}', $openBracePosition + 1);
 
-            if ($endBracePosition === null) {
+            if ($endBracePosition === false) {
                 throw (new \Exception('Closing brace was not found', - 1));
-            } elseif ($openBracePosition === null) {
+            } elseif ($openBracePosition === false) {
                 $counter --;
             } elseif ($openBracePosition < $endBracePosition) {
                 $counter ++;
@@ -79,6 +79,23 @@ class Parser2
                 $counter --;
             }
         }
+    }
+
+    /**
+     * Checking if the macro has parameters
+     *
+     * @param string $content
+     *            content to be parsed
+     * @param int $openBracePosition
+     *            start of the macro
+     * @return bool if the macro has parameters, false otherwise
+     */
+    protected static function hasParameters(string $content, int $openBracePosition): bool
+    {
+        $doubleDotsPosition = strpos($content, ':', $openBracePosition + 1);
+        $endBracePosition = strpos($content, '}', $openBracePosition + 1);
+
+        return $doubleDotsPosition === false || $doubleDotsPosition < $endBracePosition;
     }
 
     /**

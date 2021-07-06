@@ -4,6 +4,7 @@ namespace Mezon\TemplateEngine\Tests;
 use PHPUnit\Framework\TestCase;
 use Mezon\TemplateEngine\Parser;
 use Mezon\TemplateEngine\Parser2;
+use Mezon\TemplateEngine\TemplateEngine;
 
 /**
  *
