@@ -96,16 +96,17 @@ class Parser2
         $macroName = self::getMacroName($content, $openBracePosition);
         $macroStart = '{' . $macroName . (self::hasParameters($content, $openBracePosition) ? ':' : '}');
         $macroEnd = '{~' . $macroName . '}';
+        $endMacroPosition = 0;
 
         while ($counter > 0) {
             $openMacroPosition = strpos($content, $macroStart, $openBracePosition + 1);
             $endMacroPosition = strpos($content, $macroEnd, $openBracePosition + 1);
 
             if ($endMacroPosition === false) {
-                throw (new \Exception('Ending ' . $endMacroPosition . 'was not found', - 1));
+                throw (new \Exception('Ending ' . $macroEnd . 'was not found', - 1));
             } elseif ($openMacroPosition === false) {
-                // no open macros till the end of the $content
-                $openBracePosition = $openMacroPosition;
+                // no open macros till the end of the $content, so skip to the next macro end
+                $openBracePosition = $endMacroPosition;
                 $counter --;
             } elseif ($openMacroPosition < $endMacroPosition) {
                 // we have nested macros
