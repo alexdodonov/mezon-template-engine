@@ -64,21 +64,28 @@ class Parser2
     protected static function getReadStart(string $content, int $openBracePosition): int
     {
         $counter = 1;
+        $endBracePosition = 0;
+        $tmpOpenBracePosition = $openBracePosition;
 
         while ($counter > 0) {
-            $openBracePosition = strpos($content, '{', $openBracePosition + 1);
-            $endBracePosition = strpos($content, '}', $openBracePosition + 1);
+            $openBracePosition = strpos($content, '{', $tmpOpenBracePosition + 1);
+            $endBracePosition = strpos($content, '}', $tmpOpenBracePosition + 1);
 
             if ($endBracePosition === false) {
                 throw (new \Exception('Closing brace was not found', - 1));
             } elseif ($openBracePosition === false) {
                 $counter --;
+                $tmpOpenBracePosition = intval($endBracePosition);
             } elseif ($openBracePosition < $endBracePosition) {
                 $counter ++;
+                $tmpOpenBracePosition = intval($openBracePosition);
             } elseif ($openBracePosition > $endBracePosition) {
                 $counter --;
+                $tmpOpenBracePosition = intval($openBracePosition);
             }
         }
+
+        return $endBracePosition;
     }
 
     /**

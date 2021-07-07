@@ -23,8 +23,20 @@ class Parser2UnitTest extends TestCase
         TemplateEngine::$parser = Parser2::class;
     }
 
+    /**
+     *
+     * {@inheritdoc}
+     * @see \PHPUnit\Framework\TestCase::tearDownAfterClass()
+     */
     public static function tearDownAfterClass(): void
     {
         TemplateEngine::$parser = Parser::class;
+    }
+
+    /**
+     */
+    public function testFirst(): void
+    {
+        $this->assertTrue(true);
     }
 }
