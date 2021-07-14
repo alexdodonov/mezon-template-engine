@@ -23,8 +23,8 @@ class Parser2
      * @var array
      */
     public static $macroHandlers = [
-        'foreach' => Parser2\ForeachHandler::parse,
-        'switch' => Parser2\SwitchHandler::parse
+        'foreach' => 'Handlers\ForeachHandler::parse',
+        'switch' => 'Handlers\SwitchHandler::parse'
     ];
 
     /**
