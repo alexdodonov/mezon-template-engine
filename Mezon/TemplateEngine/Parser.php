@@ -390,7 +390,7 @@ class Parser
      * @param
      *            string Processed string
      */
-    protected static function applyForeachData($str, $parameters, $data)
+    protected static function applyForeachData($str, $parameters, $data): string
     {
         $subTemplate = self::getBlockData($str, "foreach:$parameters", '~foreach');
 
@@ -399,7 +399,7 @@ class Parser
         $recordCounter = 1;
 
         foreach ($data as $v) {
-            $singleRecordTemplate = str_replace('{n}', $recordCounter ++, $subTemplate);
+            $singleRecordTemplate = str_replace('{n}', (string) $recordCounter ++, $subTemplate);
 
             $str = str_replace($blockStart, self::printRecord($singleRecordTemplate, $v) . $blockStart, $str);
         }
@@ -419,7 +419,7 @@ class Parser
      * @param
      *            string Processed string
      */
-    protected static function applyPrintData($str, $parameters, $data)
+    protected static function applyPrintData($str, $parameters, $data): string
     {
         $subTemplate = self::getBlockData($str, "print:$parameters", '~print');
 
@@ -450,6 +450,10 @@ class Parser
                 $string = self::replaceBlock($string, "print:$parameters", '~print', '');
             } else {
                 $startPos = strpos($string, "{print:$parameters", $startPos > 0 ? $startPos : 0);
+
+                if ($startPos === false) {
+                    return $string;
+                }
             }
         }
 
@@ -478,6 +482,10 @@ class Parser
                 $string = self::replaceBlock($string, "foreach:$parameters", '~foreach', '');
             } else {
                 $startPos = strpos($string, "{foreach:$parameters", $startPos > 0 ? $startPos : 0);
+
+                if ($startPos === false) {
+                    return $string;
+                }
             }
         }
 
