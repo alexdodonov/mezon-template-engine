@@ -442,7 +442,7 @@ class Parser
         $startPos = - 1;
 
         while ($parameters = self::getMacroParameters($string, 'print', $startPos)) {
-            if (\Mezon\Functional\Functional::fieldExists($record, $parameters)) {
+            if (\Mezon\Functional\Fetcher::fieldExists($record, $parameters)) {
                 $data = \Mezon\Functional\Fetcher::getField($record, $parameters);
 
                 $string = self::applyPrintData($string, $parameters, $data);
@@ -470,7 +470,7 @@ class Parser
         $startPos = - 1;
 
         while ($parameters = self::getMacroParameters($string, 'foreach', $startPos)) {
-            if (\Mezon\Functional\Functional::fieldExists($record, $parameters)) {
+            if (\Mezon\Functional\Fetcher::fieldExists($record, $parameters)) {
                 $data = \Mezon\Functional\Fetcher::getField($record, $parameters);
 
                 $string = self::applyForeachData($string, $parameters, $data);
