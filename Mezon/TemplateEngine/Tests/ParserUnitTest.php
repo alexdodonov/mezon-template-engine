@@ -4,7 +4,10 @@ namespace Mezon\TemplateEngine\Tests;
 use PHPUnit\Framework\TestCase;
 use Mezon\TemplateEngine\Parser;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
+/**
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class ParserUnitTest extends TestCase
 {
 
@@ -50,7 +53,7 @@ class ParserUnitTest extends TestCase
         $result = Parser::getMacroParameters($string, "foreach");
 
         // assertions
-        $this->assertFalse($result);
+        $this->assertEquals('var', $result);
     }
 
     /**

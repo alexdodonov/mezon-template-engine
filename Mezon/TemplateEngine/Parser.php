@@ -227,7 +227,7 @@ class Parser
      * @param
      *            string Processed string
      */
-    public static function replaceBlock($str, $blockStart, $blockEnd, $content)
+    public static function replaceBlock($str, $blockStart, $blockEnd, $content):string
     {
         list ($startPos, $endPos) = self::getBlockPositions($str, $blockStart, $blockEnd);
 
@@ -259,7 +259,7 @@ class Parser
      *            Position of the macro
      * @param int $paramStartPos
      *            Position of macro's parameters
-     * @return string Macro parameters or false otherwise
+     * @return string|bool Macro parameters or false otherwise
      */
     protected static function findMacro(
         &$stringData,
@@ -284,16 +284,16 @@ class Parser
     /**
      * Getting macro start
      *
-     * @param int $tmpStartPos
+     * @param int|bool $tmpStartPos
      *            Search temporary starting position
-     * @param int $tmpEndPos
+     * @param int|bool $tmpEndPos
      *            Search temporary ending position
      * @param int $startPos
      *            Search starting position
      * @param int $counter
      *            Brackets counter
      */
-    protected static function handleMacroStart(int $tmpStartPos, int $tmpEndPos, int &$startPos, int &$counter)
+    protected static function handleMacroStart($tmpStartPos, int $tmpEndPos, int &$startPos, int &$counter):void
     {
         if ($tmpStartPos !== false && $tmpEndPos !== false) {
             if ($tmpStartPos < $tmpEndPos) {
@@ -312,9 +312,9 @@ class Parser
     /**
      * Getting macro end
      *
-     * @param int $tmpStartPos
+     * @param int|bool $tmpStartPos
      *            Search temporary starting position
-     * @param int $tmpEndPos
+     * @param int|bool $tmpEndPos
      *            Search temporary ending position
      * @param int $startPos
      *            Search starting position
@@ -323,12 +323,7 @@ class Parser
      * @param int $macroStartPos
      *            Position of the macro
      */
-    protected static function handleMacroEnd(
-        int $tmpStartPos,
-        int $tmpEndPos,
-        int &$startPos,
-        int &$counter,
-        int $macroStartPos)
+    protected static function handleMacroEnd($tmpStartPos, $tmpEndPos, int &$startPos, int &$counter, int $macroStartPos):void
     {
         if ($tmpStartPos !== false && $tmpEndPos === false) {
             $counter ++;
@@ -351,9 +346,9 @@ class Parser
      *
      * @param string $stringData
      *            Parsing string
-     * @param int $tmpStartPos
+     * @param int|bool $tmpStartPos
      *            Search temporary starting position
-     * @param int $tmpEndPos
+     * @param int|bool $tmpEndPos
      *            Search temporary ending position
      * @param int $startPos
      *            Search starting position
@@ -368,7 +363,7 @@ class Parser
         &$tmpEndPos,
         &$startPos,
         &$counter,
-        $macroStartPos)
+        $macroStartPos): void
     {
         $tmpStartPos = strpos($stringData, '{', $startPos + 1);
         $tmpEndPos = strpos($stringData, '}', $startPos + 1);
