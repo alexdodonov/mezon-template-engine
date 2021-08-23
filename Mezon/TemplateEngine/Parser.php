@@ -276,7 +276,7 @@ class Parser
         do {
             self::handleMacroStartEnd($stringData, $tmpStartPos, $tmpEndPos, $startPos, $counter, $macroStartPos);
 
-            if ($counter == 0) {
+            if ($counter === 0) {
                 return substr($stringData, $paramStartPos, (int) $tmpEndPos - $paramStartPos);
             }
         } while ($tmpStartPos);

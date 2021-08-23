@@ -17,10 +17,10 @@ $TemplateResources->add_css_file( './res/test.css' ); // additing CSS file
 $TemplateResources->add_js_file( './include/js/test.js' ); // additing JS file
 
 $TemplateResources->add_css_files( 
-    array( './res/test1.css' , './res/test2.css' )
+    [ './res/test1.css' , './res/test2.css' ]
 ); // additing CSS files
 $TemplateResources->add_js_files(
-    array( './include/js/test1.js' , './include/js/test2.js' )
+    [ './include/js/test1.js' , './include/js/test2.js' ]
 ); // additing JS files
 ```
 
@@ -42,7 +42,7 @@ TemplateEngine class provides content compilation routine. This function is call
 ```PHP
 // outputs "v1 v2"
 print( TemplateEngine::print_record( 
-    '{var1} {var2}' , array( 'var1' => 'v1' , 'var2' => 'v2' ) 
+    '{var1} {var2}' , [ 'var1' => 'v1' , 'var2' => 'v2' ] 
 ) );
 
 // or object
@@ -58,7 +58,7 @@ print( TemplateEngine::print_record(
 // $Data may contain nested arrays or objects
 // outputs "v1 v2 v3"
 print( TemplateEngine::print_record( 
-    '{var1} {var2} {var3}' , array( $Object , array( 'var3' => 'v3' ) )
+    '{var1} {var2} {var3}' , [ $Object , [ 'var3' => 'v3' ] ]
 ) );
 ```
 
