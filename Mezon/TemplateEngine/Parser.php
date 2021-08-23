@@ -13,6 +13,8 @@ namespace Mezon\TemplateEngine;
 
 /**
  * Parsing algorithms
+ * 
+ * @psalm-suppress InvalidScalarArgument
  */
 class Parser
 {
@@ -161,7 +163,7 @@ class Parser
      *            macro name
      * @param int|bool $startPos
      *            starting position of the search
-     * @return mixed Macro parameters or false if the macro was not found
+     * @return string|bool Macro parameters or false if the macro was not found
      */
     public static function getMacroParameters(string $string, string $name, $startPos = - 1)
     {
