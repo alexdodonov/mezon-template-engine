@@ -12,7 +12,7 @@
 			<directory suffix="UnitTest.php">./Mezon</directory>
 			<directory suffix="UnitTest.php">./vendor/mezon</directory>
 		</testsuite>
-		
+
 		<testsuite name="unit">
 			<directory suffix="UnitTest.php">./Mezon</directory>
 		</testsuite>
@@ -30,10 +30,10 @@
 	</filter>
 
 	<logging>
-		<log type="coverage-html"
-			target="./tmp/coverage-phpunit.html"></log>
+		<log type="coverage-html" target="./tmp/coverage-phpunit.html"></log>
 		<log type="coverage-text" target="php://stdout"
 			showOnlySummary="true"></log>
+		<log type="coverage-clover" target="./tmp/clover.xml" />
 	</logging>
 	<groups>
 		<exclude>
