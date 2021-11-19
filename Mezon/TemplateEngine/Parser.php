@@ -1,6 +1,8 @@
 <?php
 namespace Mezon\TemplateEngine;
 
+use Mezon\Functional\Fetcher;
+
 /**
  * Class Parser
  *
@@ -13,7 +15,7 @@ namespace Mezon\TemplateEngine;
 
 /**
  * Parsing algorithms
- * 
+ *
  * @psalm-suppress InvalidScalarArgument
  */
 class Parser
@@ -32,6 +34,7 @@ class Parser
         $startPos = $endPos = false;
         $c = 0;
 
+        /** @var string $value */
         foreach ($positions as $key => $value) {
             if ($startPos === false && $value === 's') {
                 $c ++;
@@ -122,8 +125,9 @@ class Parser
      * @param string $string
      *            processing string
      * @return string Processed string
+     * @psalm-suppress MixedAssignment, MixedArgument, MixedOperand
      */
-    public static function compileSwitch($string): string
+    public static function compileSwitch(string $string): string
     {
         $startPos = - 1;
 
@@ -200,7 +204,8 @@ class Parser
      *            start of the block
      * @param string $blockEnd
      *            end of the block
-     * @return mixed Block content. Or false if the block was not found
+     * @return mixed block content. Or false if the block was not found
+     * @psalm-suppress MixedAssignment, MixedArgument, MixedOperand
      */
     public static function getBlockData(string $string, string $blockStart, string $blockEnd)
     {
@@ -227,8 +232,8 @@ class Parser
      *            ending marker of the block
      * @param string $content
      *            content to replace block
-     * @param
-     *            string Processed string
+     * @return string processed string
+     * @psalm-suppress MixedAssignment, MixedArgument, MixedOperand
      */
     public static function replaceBlock($str, $blockStart, $blockEnd, $content): string
     {
@@ -249,20 +254,20 @@ class Parser
      * Getting macro start
      *
      * @param string $stringData
-     *            Parsing string
+     *            parsing string
      * @param int|bool $tmpStartPos
-     *            Search temporary starting position
+     *            search temporary starting position
      * @param int|bool $tmpEndPos
-     *            Search temporary ending position
+     *            search temporary ending position
      * @param int|bool $startPos
-     *            Search starting position
+     *            search starting position
      * @param int $counter
-     *            Brackets counter
+     *            brackets counter
      * @param int $macroStartPos
-     *            Position of the macro
+     *            position of the macro
      * @param int $paramStartPos
-     *            Position of macro's parameters
-     * @return string|bool Macro parameters or false otherwise
+     *            position of macro's parameters
+     * @return string|bool macro parameters or false otherwise
      */
     protected static function findMacro(
         &$stringData,
@@ -385,8 +390,8 @@ class Parser
      *            block parameters
      * @param mixed $data
      *            replacement data
-     * @param
-     *            string Processed string
+     * @return string Processed string
+     * @psalm-suppress MixedAssignment, MixedArgument
      */
     protected static function applyForeachData($str, $parameters, $data): string
     {
@@ -414,8 +419,8 @@ class Parser
      *            block parameters
      * @param mixed $data
      *            replacement data
-     * @param
-     *            string Processed string
+     * @return string Processed string
+     * @psalm-suppress MixedAssignment, MixedArgument
      */
     protected static function applyPrintData($str, $parameters, $data): string
     {
@@ -433,15 +438,16 @@ class Parser
      *            processing string
      * @param mixed $record
      *            printing record
-     * @return string Processed string
+     * @return string processed string
+     * @psalm-suppress MixedAssignment
      */
     public static function compilePrint($string, &$record): string
     {
         $startPos = - 1;
 
         while ($parameters = self::getMacroParameters($string, 'print', $startPos)) {
-            if (\Mezon\Functional\Fetcher::fieldExists($record, $parameters)) {
-                $data = \Mezon\Functional\Fetcher::getField($record, $parameters);
+            if (Fetcher::fieldExists($record, $parameters)) {
+                $data = Fetcher::getField($record, $parameters);
 
                 $string = self::applyPrintData($string, $parameters, $data);
 
@@ -472,8 +478,9 @@ class Parser
         $startPos = - 1;
 
         while ($parameters = self::getMacroParameters($string, 'foreach', $startPos)) {
-            if (\Mezon\Functional\Fetcher::fieldExists($record, $parameters)) {
-                $data = \Mezon\Functional\Fetcher::getField($record, $parameters);
+            if (Fetcher::fieldExists($record, $parameters)) {
+                /** @var array|object $data */
+                $data = Fetcher::getField($record, $parameters);
 
                 $string = self::applyForeachData($string, $parameters, $data);
 
@@ -495,16 +502,22 @@ class Parser
      *
      * @param string $string
      *            processing string
-     * @param mixed $record
+     * @param array|object $record
      *            printing record
      * @return string Processed string
      */
     public static function compileValues($string, $record): string
     {
+        /**
+         *
+         * @var string $field
+         * @var mixed $value
+         */
         foreach ($record as $field => $value) {
             if (is_array($value) || is_object($value)) {
                 $string = self::unwrapBlocks($string, $value);
             } else {
+                /** @var string $value */
                 $string = str_replace('{' . $field . '}', $value, $string);
             }
         }
@@ -517,10 +530,10 @@ class Parser
      *
      * @param string $string
      *            processing string
-     * @param mixed $record
+     * @param array|object $record
      *            printing record
-     * @param
-     *            string Processed string
+     * @return string processed string
+     * @psalm-suppress MixedArgument
      */
     public static function unwrapBlocks(string $string, $record): string
     {

@@ -12,7 +12,9 @@ namespace Mezon\TemplateEngine;
  */
 
 /**
- * Template engine class.
+ * Template engine class
+ * 
+ * @psalm-suppress MixedReturnStatement, MixedInferredReturnType
  */
 class TemplateEngine
 {

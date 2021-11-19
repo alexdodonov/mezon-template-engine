@@ -13,6 +13,8 @@ namespace Mezon\TemplateEngine;
 
 /**
  * Parsing algorithms
+ * 
+ * @psalm-suppress MixedReturnStatement, MixedInferredReturnType
  */
 class Parser2
 {
@@ -20,7 +22,7 @@ class Parser2
     /**
      * List of macro handlers
      *
-     * @var array
+     * @var array<string, callable>
      */
     public static $macroHandlers = [
         'foreach' => 'Handlers\ForeachHandler::parse',
