@@ -13,7 +13,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "^8.5",
 		"phpunit/php-token-stream": "3.1.2",
-        "vimeo/psalm": "^4.2"
+        "vimeo/psalm": "^4.2",
+		"infection/infection": "^0.21.5"
 	},
 	"require": {
 		"php": ">=7.2.0",
@@ -36,6 +37,7 @@
 		"test": "php ./vendor/phpunit/phpunit/phpunit",
 		"test-unit": "php ./vendor/phpunit/phpunit/phpunit --testsuite unit",
 		"psalm": "php ./vendor/vimeo/psalm/psalm --show-info=true --no-cache",
-		"psalm-self": "php ./vendor/vimeo/psalm/psalm --config=psalm-self.xml --show-info=true --no-cache"
+		"psalm-self": "php ./vendor/vimeo/psalm/psalm --config=psalm-self.xml --show-info=true --no-cache",
+		"infection": "php ./vendor/infection/infection/bin/infection --min-msi=38"
 	}
 }

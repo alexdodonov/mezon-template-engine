@@ -8,7 +8,7 @@ namespace Mezon\TemplateEngine;
  * @subpackage TemplateEngine
  * @author Dodonov A.A.
  * @version v.1.0 (2020/01/20)
- * @copyright Copyright (c) 2020, aeon.org
+ * @copyright Copyright (c) 2020, http://aeon.su
  */
 
 /**

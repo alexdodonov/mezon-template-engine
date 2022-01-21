@@ -10,7 +10,7 @@ use Mezon\Functional\Fetcher;
  * @subpackage TemplateEngine
  * @author Dodonov A.A.
  * @version v.1.0 (2020/01/20)
- * @copyright Copyright (c) 2020, aeon.org
+ * @copyright Copyright (c) 2020, http://aeon.su
  */
 
 /**
@@ -333,10 +333,10 @@ class Parser
      */
     protected static function handleMacroEnd($tmpStartPos, $tmpEndPos, &$startPos, int &$counter, int $macroStartPos): void
     {
-        if ($tmpStartPos !== false && $tmpEndPos === false) {
-            $counter ++;
-            $startPos = $tmpStartPos;
-        }
+        //if ($tmpStartPos !== false && $tmpEndPos === false) {
+        //    $counter ++;
+        //    $startPos = $tmpStartPos;
+        //}
 
         if ($tmpStartPos === false && $tmpEndPos !== false) {
             $counter --;
