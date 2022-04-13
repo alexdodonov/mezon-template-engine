@@ -286,7 +286,9 @@ class Parser
             }
         } while ($tmpStartPos);
 
+        // @codeCoverageIgnoreStart
         return false;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
