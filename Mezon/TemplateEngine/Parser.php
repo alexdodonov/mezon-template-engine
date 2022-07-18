@@ -74,13 +74,15 @@ class Parser
             $positions[$startPos] = 's';
             $blockStart = explode(':', $blockStart);
             $blockStart = $blockStart[0];
-            while (($startPos = strpos($string, '{' . $blockStart . ':', $startPos + 1)) !== false) {
+            while (($startPos = strpos($string, '{' . $blockStart . '}', $startPos + 1)) !== false) {
                 $positions[$startPos] = 's';
             }
         }
+
         while ($endPos = strpos($string, '{' . $blockEnd . '}', $endPos + 1)) {
             $positions[$endPos] = 'e';
         }
+
         ksort($positions);
 
         return $positions;
@@ -335,11 +337,10 @@ class Parser
      */
     protected static function handleMacroEnd($tmpStartPos, $tmpEndPos, &$startPos, int &$counter, int $macroStartPos): void
     {
-        //if ($tmpStartPos !== false && $tmpEndPos === false) {
-        //    $counter ++;
-        //    $startPos = $tmpStartPos;
-        //}
-
+        // if ($tmpStartPos !== false && $tmpEndPos === false) {
+        // $counter ++;
+        // $startPos = $tmpStartPos;
+        // }
         if ($tmpStartPos === false && $tmpEndPos !== false) {
             $counter --;
             $startPos = $tmpEndPos;

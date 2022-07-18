@@ -3,6 +3,7 @@ namespace Mezon\TemplateEngine\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Mezon\TemplateEngine\Parser;
+use Mezon\TemplateEngine\TemplateEngine;
 
 /**
  *
@@ -69,5 +70,21 @@ class ParserUnitTest extends TestCase
 
         // assertions
         $this->assertFalse($result);
+    }
+
+    /**
+     * Testing method getBlockPositions for nested macros
+     */
+    public function testNestedMacros(): void
+    {
+        // setup
+        $string = '{macro}{macro}{~macro}{~macro}';
+
+        // test body
+        list ($start, $end) = Parser::getBlockPositions($string, 'macro', '~macro');
+
+        // assertions
+        $this->assertEquals(0, $start);
+        $this->assertEquals(22, $end);
     }
 }
