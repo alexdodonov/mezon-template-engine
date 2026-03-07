@@ -36,11 +36,11 @@
 	"scripts": {
 		"test": [
 			"php ./vendor/phpunit/phpunit/phpunit --order-by=random",
-			"php ./vendor/rregeer/phpunit-coverage-check/bin/coverage-check ./Tmp/coverage.xml 77"
+			"php ./vendor/rregeer/phpunit-coverage-check/bin/coverage-check ./Tmp/all/coverage.xml 77"
 		],
 		"test-self": [
 			"php ./vendor/phpunit/phpunit/phpunit --configuration=phpunit-self.xml --order-by=random",
-			"php ./vendor/rregeer/phpunit-coverage-check/bin/coverage-check ./Tmp/coverage.xml 59"
+			"php ./vendor/rregeer/phpunit-coverage-check/bin/coverage-check ./Tmp//self/coverage.xml 59"
 		],
 		"psalm": "php ./vendor/vimeo/psalm/psalm --show-info=true --no-cache",
 		"psalm-self": "php ./vendor/vimeo/psalm/psalm --show-info=true --no-cache --config=psalm-self.xml",
