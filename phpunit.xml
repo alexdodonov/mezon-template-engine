@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.0/phpunit.xsd"
+	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/10.5/phpunit.xsd"
 	backupGlobals="false" colors="true" bootstrap='./vendor/autoload.php'
-	stopOnFailure="true">
+	stopOnError="true" stopOnFailure="true" displayDetailsOnTestsThatTriggerDeprecations="true" displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
 	<php>
 		<ini name="error_reporting" value="-1" />
 	</php>
@@ -13,33 +14,24 @@
 			<directory suffix="UnitTest.php">./Mezon</directory>
 			<directory suffix="UnitTest.php">./vendor/mezon</directory>
 		</testsuite>
-
-		<testsuite name="unit">
-			<directory suffix="UnitTest.php">./Mezon</directory>
-		</testsuite>
 	</testsuites>
 
-	<filter>
-		<whitelist addUncoveredFilesFromWhitelist="false">
-			<directory>./</directory>
-			<exclude>
-				<directory suffix="Test.php">./</directory>
-				<directory>vendor</directory>
-				<file>autoloader.php</file>
-			</exclude>
-		</whitelist>
-	</filter>
+	<source>
+        <include>
+            <directory>./Mezon</directory>
+            <directory>./vendor/mezon</directory>
+        </include>
+        <exclude>
+        	<directory>./Mezon/*/Tests</directory>
+        	 <directory>./vendor/mezon/*/Mezon/*/Tests</directory>
+        </exclude>
+    </source>
 
-	<logging>
-		<log type="coverage-html"
-			target="./tmp/coverage-phpunit.html"></log>
-		<log type="coverage-text" target="php://stdout"
-			showOnlySummary="true"></log>
-		<log type="coverage-clover" target="./tmp/clover.xml" />
-	</logging>
-	<groups>
-		<exclude>
-			<group>baseTests</group>
-		</exclude>
-	</groups>
+	<coverage>
+        <report>
+            <html outputDirectory="./Tmp/all"/>
+            <clover outputFile="./Tmp/all/coverage.xml"/>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
 </phpunit>
